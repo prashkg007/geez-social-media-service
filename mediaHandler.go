@@ -10,7 +10,7 @@ import (
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	switch request.Path {
 	case "/post/create":
-		return events.APIGatewayProxyResponse{Body: "Hello, World!", StatusCode: 200}, nil
+		return createPost(ctx, request)
 	default:
 		return events.APIGatewayProxyResponse{Body: "Not Found", StatusCode: 404}, nil
 	}

@@ -19,7 +19,7 @@ jobs:
           go-version: 1.18
 
       - name: Build Lambda function
-        run: GOOS=linux go build -o mediaServiceHandler mediaHandler.go
+        run: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o mediaServiceHandler mediaHandler.go
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
