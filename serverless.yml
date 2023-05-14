@@ -6,7 +6,7 @@ provider:
 
 functions:
   myHandler:
-    handler: bin/myHandler
+    handler: bin/mediaServiceHandler
     events:
       - http:
           path: /media/

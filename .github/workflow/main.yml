@@ -19,7 +19,7 @@ jobs:
           go-version: 1.18
 
       - name: Build Lambda function
-        run: GOOS=linux go build -o bin/myHandler cmd/myHandler/main.go
+        run: GOOS=linux go build -o bin/mediaServiceHandler mediaHandler.go
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -29,4 +29,4 @@ jobs:
           aws-region: ap-south-1
 
       - name: Deploy Lambda function
-        run: sam deploy --template-file serverless.yml --stack-name my-go-lambda --capabilities CAPABILITY_IAM
+        run: sam deploy --template-file serverless.yml --stack-name media-service-lambda --capabilities CAPABILITY_IAM
