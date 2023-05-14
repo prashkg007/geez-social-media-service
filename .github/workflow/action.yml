@@ -1,0 +1,32 @@
+name: Deploy Lambda Function
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
+
+      - name: Build Lambda function
+        run: GOOS=linux go build -o bin/myHandler cmd/myHandler/main.go
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Deploy Lambda function
+        run: sam deploy --template-file serverless.yml --stack-name my-go-lambda --capabilities CAPABILITY_IAM

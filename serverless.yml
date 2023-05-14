@@ -1,0 +1,13 @@
+service: my-go-lambda
+
+provider:
+  name: aws
+  runtime: go1.18
+
+functions:
+  myHandler:
+    handler: bin/myHandler
+    events:
+      - http:
+          path: /media/
+          method: any
